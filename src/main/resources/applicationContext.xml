@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:jaxrs="http://cxf.apache.org/jaxrs" xmlns:cxf="http://cxf.apache.org/core"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!-- JAX-RS(ReSTful) : CXF 3.0.3 -->
+    <import resource="classpath:META-INF/cxf/cxf.xml"/>
+
+    <!-- ANNOTATION CONTEXT DEFINITION -->
+    <context:annotation-config/>
+
+    <!-- COMPONENT AUTO-SCAN CONTEXT DEFINITION -->
+    <context:component-scan base-package="com.tony.examples.cxf"/>
+
+    <jaxrs:server id="restService" address="/">
+        <jaxrs:serviceBeans>
+            <bean class="com.tony.examples.cxf.TestService"/>
+        </jaxrs:serviceBeans>
+        <jaxrs:providers>
+            <bean class="com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider"/>
+            <bean class="com.tony.examples.cxf.provider.ServiceExceptionMapper"/>
+            <bean class="com.tony.examples.cxf.provider.BeanValidationExceptionMapper"/>
+            <bean class="com.tony.examples.cxf.provider.SecurityContextRequestFilter"/>
+            <bean class="com.tony.examples.cxf.provider.DecryptReaderFilter"/>
+        </jaxrs:providers>
+        <jaxrs:inInterceptors>
+            <bean class="org.apache.cxf.jaxrs.validation.JAXRSBeanValidationInInterceptor"/>
+            <bean class="org.apache.cxf.interceptor.security.SecureAnnotationsInterceptor"/>
+        </jaxrs:inInterceptors>
+        <jaxrs:features>
+            <cxf:logging/>
+        </jaxrs:features>
+    </jaxrs:server>
+
+    <!-- Spring RestTemplate -->
+    <bean id="restTemplate" class="org.springframework.web.client.RestTemplate"/>
+
+</beans>

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2015 (x64) (http://www.altova.com) by Jiyoun Lim (NHN ENTERTAINMENT CORPORATION) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:vc="http://www.w3.org/2007/XMLSchema-versioning" xmlns:jaxb="http://java.sun.com/xml/ns/jaxb" xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc" elementFormDefault="qualified" attributeFormDefault="unqualified" vc:minVersion="1.1" jaxb:extensionBindingPrefixes="xjc" jaxb:version="2.1">
+	<xs:annotation>
+		<xs:appinfo>
+			<jaxb:globalBindings>
+				<xjc:serializable uid="-6026937020915831338"/>
+				<jaxb:javaType name="java.util.Date" xmlType="xs:dateTime" parseMethod="org.apache.cxf.xjc.runtime.DataTypeAdapter.parseDateTime" printMethod="org.apache.cxf.xjc.runtime.DataTypeAdapter.printDateTime"/>
+				<jaxb:javaType name="java.util.Date" xmlType="xs:date" parseMethod="org.apache.cxf.xjc.runtime.DataTypeAdapter.parseDateTime" printMethod="org.apache.cxf.xjc.runtime.DataTypeAdapter.printDateTime"/>
+			</jaxb:globalBindings>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:complexType name="AbstractRequestType" abstract="true">
+		<xs:annotation>
+			<xs:documentation>공통 요청</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="authKey" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>인증키</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="userId" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>사용자 ID(최초 로그인 요청시는 공백)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="appVer" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>어플 버전</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AbstractResponseType" abstract="true">
+		<xs:annotation>
+			<xs:documentation>공통 응답</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ats" type="xs:long"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:annotation>
+		<xs:documentation>AUTH API</xs:documentation>
+	</xs:annotation>
+	<xs:element name="HelloRequest">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="AbstractRequestType">
+					<xs:sequence>
+						<xs:element name="name" type="xs:string"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="HelloResponse">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="AbstractResponseType">
+					<xs:sequence>
+						<xs:element name="hello" type="xs:string"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:annotation>
+		<xs:documentation>GLOBAL</xs:documentation>
+	</xs:annotation>
+	<xs:element name="ExceptionReport">
+		<xs:annotation>
+			<xs:documentation>예외 리포트</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence minOccurs="0">
+				<xs:element name="message" type="xs:string" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>에러 메시지</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="stackTrace" type="xs:string" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>에러 스택트레이스</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute name="code" type="xs:string" use="required">
+				<xs:annotation>
+					<xs:documentation>에외 코드</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="locator" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>에러발생 위치 정보</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>
