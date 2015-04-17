@@ -53,4 +53,35 @@
     <session-config>
         <session-timeout>120</session-timeout>
     </session-config>
+
+    <!-- Security -->
+    <!--<security-constraint>-->
+        <!--<web-resource-collection>-->
+            <!--<web-resource-name>CXF Jax-RS security</web-resource-name>-->
+            <!--<url-pattern>/svc/*</url-pattern>-->
+        <!--</web-resource-collection>-->
+        <!--<auth-constraint>-->
+            <!--<role-name>GUEST</role-name>-->
+            <!--<role-name>USER</role-name>-->
+            <!--<role-name>ADMIN</role-name>-->
+        <!--</auth-constraint>-->
+    <!--</security-constraint>-->
+
+    <!-- CORS (cross origin resource sharing) Enable-->
+    <!--<filter>-->
+        <!--<filter-name>CorsFilter</filter-name>-->
+        <!--<filter-class>org.apache.catalina.filters.CorsFilter</filter-class>-->
+        <!--<init-param>-->
+            <!--<param-name>cors.allowed.origins</param-name>-->
+            <!--<param-value>*</param-value>-->
+        <!--</init-param>-->
+        <!--<init-param>-->
+            <!--<param-name>cors.allowed.methods</param-name>-->
+            <!--<param-value>GET,POST,HEAD,OPTIONS,PUT,DELETE,PATCH</param-value>-->
+        <!--</init-param>-->
+    <!--</filter>-->
+    <!--<filter-mapping>-->
+        <!--<filter-name>CorsFilter</filter-name>-->
+        <!--<url-pattern>/*</url-pattern>-->
+    <!--</filter-mapping>-->
 </web-app>

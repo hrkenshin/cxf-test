@@ -1,6 +1,7 @@
 package com.tony.examples.cxf;
 
 import com.tony.examples.cxf.annotation.Decrypt;
+import com.tony.examples.cxf.annotation.Encrypt;
 import com.tony.examples.cxf.protocol.HelloRequest;
 import com.tony.examples.cxf.protocol.HelloResponse;
 import org.springframework.stereotype.Component;
@@ -17,19 +18,19 @@ import java.util.Date;
  */
 @Component
 @Path("/test")
+@Encrypt
 @Decrypt
 public class TestService {
 
     @GET
-    @RolesAllowed({"USER"})
+    @RolesAllowed({"GUEST"})
     @Path("/hello.do")
-    @Decrypt
     public String hello(@Valid @NotNull @QueryParam("name") String name) {
         return "Hello~ " + name;
     }
 
     @POST
-    @RolesAllowed({"GUEST", "USER"})
+    @RolesAllowed({"USER"})
     @Path("/hello.do")
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})

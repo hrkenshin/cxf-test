@@ -4,6 +4,10 @@ import com.tony.examples.cxf.Constants;
 import com.tony.examples.cxf.context.SecurityContext;
 import com.tony.examples.cxf.context.UserSession;
 import org.apache.commons.lang.time.DateUtils;
+import org.apache.cxf.jaxrs.model.ClassResourceInfo;
+import org.apache.cxf.jaxrs.model.OperationResourceInfo;
+import org.apache.cxf.jaxrs.utils.JAXRSUtils;
+import org.apache.cxf.message.Message;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Priority;
@@ -15,7 +19,7 @@ import java.io.IOException;
 import java.util.Date;
 
 /**
- * Security Context Filter Provider(NOT WORKING)
+ * Security Context Filter Provider
  */
 @Provider
 @Priority(Priorities.AUTHENTICATION)
@@ -25,6 +29,8 @@ public class SecurityContextRequestFilter implements ContainerRequestFilter {
 
     @Override
     public void filter(ContainerRequestContext containerRequestContext) throws IOException {
+        Message message = JAXRSUtils.getCurrentMessage();
+        ClassResourceInfo cri = message.getExchange().get(OperationResourceInfo.class).getClassResourceInfo();
 
         String sessionId = containerRequestContext.getHeaderString(SESSION_ID);
 
@@ -47,6 +53,8 @@ public class SecurityContextRequestFilter implements ContainerRequestFilter {
             userSession.setRole(Constants.USER_ROLE.GUEST);
         }
 
-        containerRequestContext.setSecurityContext(new SecurityContext(userSession));
+        SecurityContext securityContext = new SecurityContext(userSession);
+        containerRequestContext.setSecurityContext(securityContext);
+        message.put(org.apache.cxf.security.SecurityContext.class, securityContext);
     }
 }

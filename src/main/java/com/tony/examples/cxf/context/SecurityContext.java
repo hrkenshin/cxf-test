@@ -11,7 +11,7 @@ import java.security.Principal;
  *
  * @author 이승백
  */
-public class SecurityContext implements javax.ws.rs.core.SecurityContext {
+public class SecurityContext implements javax.ws.rs.core.SecurityContext, org.apache.cxf.security.SecurityContext {
 
     private final UserSession userSession;
 
@@ -27,8 +27,7 @@ public class SecurityContext implements javax.ws.rs.core.SecurityContext {
     @Override
     public boolean isUserInRole(String role) {
         if (userSession == null || !userSession.isActive()) {
-            Response denied = Response.status(Response.Status.FORBIDDEN).entity("Permission Denied").build();
-            throw new WebApplicationException(denied);
+            return false;
         }
 
         return userSession.getRole().getValue() >= Constants.USER_ROLE.valueOf(role).getValue();

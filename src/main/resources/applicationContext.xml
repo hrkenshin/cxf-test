@@ -3,8 +3,9 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:jaxrs="http://cxf.apache.org/jaxrs" xmlns:cxf="http://cxf.apache.org/core"
        xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-       http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+       http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
     <!-- JAX-RS(ReSTful) : CXF 3.0.3 -->
     <import resource="classpath:META-INF/cxf/cxf.xml"/>
@@ -15,20 +16,31 @@
     <!-- COMPONENT AUTO-SCAN CONTEXT DEFINITION -->
     <context:component-scan base-package="com.tony.examples.cxf"/>
 
+    <!-- ========================= ASPECT CONFIGURATION ======================== -->
+    <!-- AspectJ ANNOTATION -->
+    <aop:aspectj-autoproxy proxy-target-class="true"/>
+
+    <bean id="testService" class="com.tony.examples.cxf.TestService"/>
+
     <jaxrs:server id="restService" address="/">
         <jaxrs:serviceBeans>
-            <bean class="com.tony.examples.cxf.TestService"/>
+            <ref bean="testService"/>
         </jaxrs:serviceBeans>
         <jaxrs:providers>
             <bean class="com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider"/>
+            <bean class="com.tony.examples.cxf.provider.ObjectMapperResolver"/>
             <bean class="com.tony.examples.cxf.provider.ServiceExceptionMapper"/>
             <bean class="com.tony.examples.cxf.provider.BeanValidationExceptionMapper"/>
+            <bean class="com.tony.examples.cxf.provider.SecurityExceptionMapper"/>
+            <bean class="com.tony.examples.cxf.provider.DecryptReaderFilter"/>
+            <bean class="com.tony.examples.cxf.provider.EncryptWriterFilter"/>
             <bean class="com.tony.examples.cxf.provider.SecurityContextRequestFilter"/>
-            <bean class="com.tony.examples.cxf.provider.ObjectMapperResolver"/>
         </jaxrs:providers>
         <jaxrs:inInterceptors>
             <bean class="org.apache.cxf.jaxrs.validation.JAXRSBeanValidationInInterceptor"/>
-            <bean class="org.apache.cxf.interceptor.security.SecureAnnotationsInterceptor"/>
+            <bean class="org.apache.cxf.interceptor.security.SecureAnnotationsInterceptor">
+                <property name="securedObject" ref="testService"/>
+            </bean>
         </jaxrs:inInterceptors>
         <jaxrs:features>
             <cxf:logging/>

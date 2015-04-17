@@ -14,7 +14,7 @@ import javax.ws.rs.ext.ReaderInterceptorContext;
 import java.io.IOException;
 
 /**
- * Message Payload Decrypt Interceptor Provider(NOT WORKING)
+ * Message Payload Decrypt Interceptor Provider
  */
 @Provider
 @Decrypt

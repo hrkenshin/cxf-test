@@ -13,7 +13,7 @@ import javax.ws.rs.ext.WriterInterceptorContext;
 import java.io.IOException;
 
 /**
- * Message Payload Encrypt Interceptor Provider(NOT WORKING)
+ * Message Payload Encrypt Interceptor Provider
  *
  * @author 이승백
  */
