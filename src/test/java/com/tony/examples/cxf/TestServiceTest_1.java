@@ -26,7 +26,7 @@ public class TestServiceTest_1 {
 
     @Test
     public void testHello_Get() throws Exception {
-        ResponseEntity<String> entity = restTemplate.getForEntity("http://localhost:8080/svc/test/hello.do", String.class);
+        ResponseEntity<String> entity = restTemplate.getForEntity("http://localhost:8080/svc/test/hello.do?name=Lee", String.class);
         assertThat(entity.getStatusCode(), equalTo(HttpStatus.OK));
     }
 
