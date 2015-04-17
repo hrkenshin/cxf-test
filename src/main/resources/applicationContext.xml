@@ -24,7 +24,7 @@
             <bean class="com.tony.examples.cxf.provider.ServiceExceptionMapper"/>
             <bean class="com.tony.examples.cxf.provider.BeanValidationExceptionMapper"/>
             <bean class="com.tony.examples.cxf.provider.SecurityContextRequestFilter"/>
-            <bean class="com.tony.examples.cxf.provider.DecryptReaderFilter"/>
+            <bean class="com.tony.examples.cxf.provider.ObjectMapperResolver"/>
         </jaxrs:providers>
         <jaxrs:inInterceptors>
             <bean class="org.apache.cxf.jaxrs.validation.JAXRSBeanValidationInInterceptor"/>

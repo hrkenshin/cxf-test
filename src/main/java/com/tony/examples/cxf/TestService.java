@@ -10,6 +10,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.util.Date;
 
 /**
  * TEST API
@@ -17,7 +18,7 @@ import javax.ws.rs.core.MediaType;
 @Component
 @Path("/test")
 @Decrypt
-public class TestService implements RestService {
+public class TestService {
 
     @GET
     @RolesAllowed({"USER"})
@@ -37,6 +38,7 @@ public class TestService implements RestService {
         HelloResponse response = new HelloResponse();
         response.setAts(System.currentTimeMillis());
         response.setHello("Hello~ " + request.getName());
+        response.setToday(new Date());
 
         return response;
     }

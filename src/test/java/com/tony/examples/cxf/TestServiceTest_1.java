@@ -33,6 +33,10 @@ public class TestServiceTest_1 {
     @Test
     public void testHello_Post() throws Exception {
         HelloRequest request = new HelloRequest();
+        request.setAuthKey("authKey");
+        request.setUserId("Tester");
+        request.setName("Tester");
+        request.setAppVer("1.0.0");
         ResponseEntity<HelloResponse> entity = restTemplate.postForEntity("http://localhost:8080/svc/test/hello.do", request, HelloResponse.class);
         assertThat(entity.getStatusCode(), equalTo(HttpStatus.OK));
     }

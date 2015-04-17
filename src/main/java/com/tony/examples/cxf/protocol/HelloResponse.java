@@ -2,12 +2,15 @@
 package com.tony.examples.cxf.protocol;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.cxf.xjc.runtime.JAXBToStringStyle;
 
@@ -23,6 +26,7 @@ import org.apache.cxf.xjc.runtime.JAXBToStringStyle;
  *     &lt;extension base="{}AbstractResponseType">
  *       &lt;sequence>
  *         &lt;element name="hello" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="today" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
  *       &lt;/sequence>
  *     &lt;/extension>
  *   &lt;/complexContent>
@@ -33,7 +37,8 @@ import org.apache.cxf.xjc.runtime.JAXBToStringStyle;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "hello"
+    "hello",
+    "today"
 })
 @XmlRootElement(name = "HelloResponse")
 public class HelloResponse
@@ -45,6 +50,11 @@ public class HelloResponse
     @XmlElement(required = true)
     @NotNull
     protected String hello;
+    @XmlElement(required = true, type = String.class)
+    @XmlJavaTypeAdapter(Adapter1 .class)
+    @XmlSchemaType(name = "dateTime")
+    @NotNull
+    protected Date today;
 
     /**
      * Gets the value of the hello property.
@@ -68,6 +78,30 @@ public class HelloResponse
      */
     public void setHello(String value) {
         this.hello = value;
+    }
+
+    /**
+     * Gets the value of the today property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public Date getToday() {
+        return today;
+    }
+
+    /**
+     * Sets the value of the today property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setToday(Date value) {
+        this.today = value;
     }
 
     /**

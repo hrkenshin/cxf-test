@@ -25,7 +25,7 @@ public class DecryptReaderFilter implements ReaderInterceptor {
 
     @Override
     public Object aroundReadFrom(ReaderInterceptorContext context) throws IOException, WebApplicationException {
-        logger.info("TEST");
+        logger.info("Decrypt TEST");
         return context.proceed();
     }
 }

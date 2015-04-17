@@ -30,14 +30,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ExceptionReport }
-     * 
-     */
-    public ExceptionReport createExceptionReport() {
-        return new ExceptionReport();
-    }
-
-    /**
      * Create an instance of {@link HelloResponse }
      * 
      */
@@ -51,6 +43,14 @@ public class ObjectFactory {
      */
     public HelloRequest createHelloRequest() {
         return new HelloRequest();
+    }
+
+    /**
+     * Create an instance of {@link ExceptionReport }
+     * 
+     */
+    public ExceptionReport createExceptionReport() {
+        return new ExceptionReport();
     }
 
 }

@@ -60,6 +60,7 @@
 				<xs:extension base="AbstractResponseType">
 					<xs:sequence>
 						<xs:element name="hello" type="xs:string"/>
+						<xs:element name="today" type="xs:dateTime"/>
 					</xs:sequence>
 				</xs:extension>
 			</xs:complexContent>
